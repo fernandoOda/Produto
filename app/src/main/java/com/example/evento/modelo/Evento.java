@@ -62,4 +62,5 @@ public class Evento implements Serializable {
     public String toString() {
         return ("Evento: "  + nome  + "\n" + "Data: " + data + "\n" + "Local: " + local);
     }
+
 }
