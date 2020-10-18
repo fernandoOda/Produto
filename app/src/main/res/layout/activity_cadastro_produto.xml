@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="40px"
     android:orientation="vertical"
     tools:context=".CadastroProduto">
 
@@ -36,13 +37,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EDEDED"
+        android:background="#FFFFFF"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20px"
             android:layout_weight="1"
             android:background="#2196F3"
             android:onClick="onClickBack"
@@ -53,6 +55,7 @@
             android:id="@+id/buttonSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20px"
             android:layout_weight="1"
             android:background="#2196F3"
             android:onClick="onClickSave"
@@ -63,6 +66,7 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20px"
             android:layout_weight="1"
             android:background="#2196F3"
             android:onClick="onClickRemove"
