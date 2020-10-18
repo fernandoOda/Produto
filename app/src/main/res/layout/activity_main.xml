@@ -11,7 +11,7 @@
     tools:context=".MainActivity">
 
     <ListView
-        android:id="@+id/listView_produtos"
+        android:id="@+id/listView_eventos"
         style="@style/Widget.AppCompat.ListView"
         android:layout_width="match_parent"
         android:layout_height="@android:dimen/thumbnail_height"
@@ -21,7 +21,7 @@
         android:id="@+id/buttonNew"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#2196F3"
+        android:backgroundTint="#00BCD4"
         android:onClick="onClickNew"
         android:text="Novo"
         android:textColor="#FFFFFF" />

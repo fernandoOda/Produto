@@ -1,4 +1,4 @@
-package com.example.produto;
+package com.example.evento;
 
 import android.content.Context;
 
