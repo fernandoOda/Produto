@@ -24,6 +24,7 @@ public class CadastroProduto extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_produto);
         setTitle("Cadastro de Produtos");
         carregarProduto();
+
     }
 
     private void carregarProduto() {
