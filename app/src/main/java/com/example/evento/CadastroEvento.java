@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.database.EventoDAO;
 import com.example.evento.modelo.Evento;
 
 import java.text.DateFormat;
@@ -15,12 +17,9 @@ import java.util.Date;
 
 public class CadastroEvento extends AppCompatActivity {
 
-    private final int resultCodeNovoEvento = 10;
-    private final int resultCodeEventotoEditado = 11;
-    private final int resultCodeEventoExcluido = 12;
-
-    private boolean edicao = false;
+    private boolean excluir = false;
     private int id = 0;
+    private DateFormat data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +37,8 @@ public class CadastroEvento extends AppCompatActivity {
             EditText editTextData = findViewById(R.id.editTextData);
             EditText editTextLocal = findViewById(R.id.editTextLocal);
             editTextNome.setText(evento.getNome());
-            editTextData.setText(evento.getData());
+            editTextData.setText(evento.getData().toString());
             editTextLocal.setText(evento.getLocal());
-            edicao = true;
             id = evento.getId();
         }
     }
@@ -50,40 +48,52 @@ public class CadastroEvento extends AppCompatActivity {
     }
 
     public void onClickSave(View v) {
-        EditText editTextNome = findViewById(R.id.editTextNome);
-        EditText editTextData = findViewById(R.id.editTextData);
-        EditText editTextLocal = findViewById(R.id.editTextLocal);
+        processar();
 
-        String nome = editTextNome.getText().toString();
-        String data =  editTextData.getText().toString();
-        String local = editTextLocal.getText().toString();
-
-        Evento evento = new Evento(id, nome, data, local);
-        Intent intent = new Intent();
-        if (edicao) {
-            intent.putExtra("eventoEditado", evento);
-            setResult(resultCodeEventotoEditado, intent);
-        } else {
-            intent.putExtra("novoEvento", evento);
-            setResult(resultCodeNovoEvento, intent);
-        }
-        finish();
     }
 
     public void onClickRemove(View v) {
+        excluir = true;
+        processar();
+
+    }
+
+    private void processar() {
+
         EditText editTextNome = findViewById(R.id.editTextNome);
         EditText editTextData = findViewById(R.id.editTextData);
         EditText editTextLocal = findViewById(R.id.editTextLocal);
 
         String nome = editTextNome.getText().toString();
-        String data =  editTextData.getText().toString();
+        String data = editTextData.getText().toString();
         String local = editTextLocal.getText().toString();
 
-        Evento evento = new Evento(id, nome, data, local);
-        Intent intent = new Intent();
-        intent.putExtra("eventoExcluido", evento);
-        setResult(resultCodeEventoExcluido, intent);
-        finish();
+
+        if ((nome.isEmpty() || data.isEmpty() || local.isEmpty()) && !excluir) {
+            erroMensagem();
+            return;
+
+        } else {
+
+            Evento evento = new Evento(id, nome, data, local);
+            EventoDAO eventoDAO = new EventoDAO(getBaseContext());
+
+
+            if (excluir) {
+                eventoDAO.excluir(evento);
+            } else {
+                boolean salvou = eventoDAO.salvar(evento);
+                if (!salvou) {
+                    Toast.makeText(CadastroEvento.this,
+                            "Erro ao salvar",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+            finish();
+        }
     }
 
+    private void erroMensagem() {
+        Toast.makeText(CadastroEvento.this, "É obrigatório preencher todos os campos", Toast.LENGTH_LONG).show();
+    }
 }
