@@ -17,7 +17,6 @@ public class CadastroProduto extends AppCompatActivity {
 
     private boolean edicao = false;
     private int id = 0;
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
